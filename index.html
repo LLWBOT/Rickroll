@@ -3,126 +3,126 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get $1,000,000 💸</title>
+<title>Claim Your Reward</title>
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;display:flex;justify-content:center;align-items:center;cursor:pointer;
-background: linear-gradient(120deg,#ff6ec4,#7873f5,#42e695); background-size:600% 600%; animation: gradientBG 15s ease infinite;}
-
-@keyframes gradientBG{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-
-.money-button{
-  background:linear-gradient(45deg,#ffd700,#ff6347);
-  padding:1.5rem 3rem;
-  border-radius:20px;
-  font-size:1.8rem;
-  font-weight:bold;
-  color:#fff;
-  border:none;
-  box-shadow:0 0 30px rgba(255,255,255,0.5);
-  text-transform:uppercase;
-  position:relative;
-  z-index:10;
-  transition: all 0.3s ease;
-  max-width:90%;
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#7f5cff,#22c1c3,#fdbb2d);
+  background-size: 400% 400%;
+  animation:bg 12s ease infinite;
+  padding:20px;
+  text-align:center;
 }
-.money-button:hover{transform:scale(1.1) rotate(-3deg);box-shadow:0 0 50px rgba(255,255,255,0.8);}
 
-.sparkle{position:absolute;width:10px;height:10px;background:#fff;border-radius:50%;opacity:0.8;animation: float 3s linear infinite;}
-@keyframes float{0%{transform:translateY(0) scale(1);opacity:0.8;}50%{transform:translateY(-100px) scale(1.5);opacity:0.4;}100%{transform:translateY(0) scale(1);opacity:0.8;}}
+@keyframes bg{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
 
-.confetti{position:absolute;width:10px;height:10px;background:red;opacity:0.9;top:50%;left:50%;pointer-events:none;animation: fly 3s linear infinite;}
-@keyframes fly{0%{transform:translate(0,0) rotate(0deg);opacity:1;}100%{transform:translate(calc(-50vw + 100px*var(--r)), calc(-50vh + 100px*var(--r))) rotate(360deg);opacity:0;}}
+.container{
+  max-width:400px;
+  width:100%;
+  padding:30px;
+  background:rgba(255,255,255,0.15);
+  border-radius:20px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
 
-.fly-text{position:absolute;font-size:1.4rem;font-weight:bold;color:#fff;text-shadow:2px 2px #000;animation: flyText 2s linear forwards;pointer-events:none;}
-@keyframes flyText{0%{opacity:1;transform:translate(0,0) scale(1);}100%{opacity:0;transform:translate(calc(-200px + 400px*var(--r)),-400px) scale(2) rotate(360deg);}}
+h1{
+  font-size:1.8rem;
+  color:white;
+  margin-bottom:10px;
+}
+
+p{
+  font-size:1rem;
+  color:white;
+  opacity:0.9;
+  margin-bottom:25px;
+}
+
+/* BUTTON */
+.btn{
+  width:100%;
+  padding:15px 0;
+  background:linear-gradient(45deg,#ffcb2d,#ff7b39);
+  border:none;
+  color:white;
+  font-size:1.2rem;
+  font-weight:600;
+  border-radius:14px;
+  cursor:pointer;
+  transition:0.25s;
+  box-shadow:0 4px 20px rgba(0,0,0,0.2);
+}
+
+.btn:hover{
+  transform:scale(1.05);
+}
+
+/* Progress bar */
+.progress-container{
+  width:100%;
+  background:rgba(255,255,255,0.3);
+  border-radius:12px;
+  overflow:hidden;
+  margin-top:20px;
+  display:none;
+}
+
+.progress-bar{
+  height:12px;
+  width:0%;
+  background:linear-gradient(90deg,#ffcb2d,#ff7b39);
+  transition:width 0.3s;
+}
+
 </style>
 </head>
 <body>
-<button class="money-button" onclick="rickroll(event)">Click Here to Get $1,000,000 💸</button>
 
-<!-- Sparkles -->
-<div class="sparkle" style="top:20%; left:30%; animation-delay:0s;"></div>
-<div class="sparkle" style="top:50%; left:70%; animation-delay:1s;"></div>
-<div class="sparkle" style="top:80%; left:40%; animation-delay:2s;"></div>
-<div class="sparkle" style="top:30%; left:60%; animation-delay:1.5s;"></div>
-<div class="sparkle" style="top:60%; left:20%; animation-delay:2.5s;"></div>
+<div class="container">
+    <h1>Your Reward Is Ready</h1>
+    <p>Click the button below and complete 3 quick tasks to unlock your money.</p>
+    <button class="btn" onclick="startTasks()">Get Started</button>
 
-<!-- Audio -->
-<audio id="rickAudio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+    <div class="progress-container" id="progressContainer">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+</div>
 
 <script>
-const btn=document.querySelector('.money-button');
-const phrases=["💸 MONEY 💸","RICKROLLED 😈","YOU CAN'T WIN","HAHAHA","CLICK ME"];
-const audio=document.getElementById('rickAudio');
+function startTasks(){
+    const btn = document.querySelector('.btn');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
 
-// ===== Rickroll =====
-function rickroll(event){
-  event.stopPropagation();
-  playChaos();
-  setTimeout(()=>window.location.href="https://www.youtube.com/watch?v=dQw4w9WgXcQ",2500);
+    // Hide button, show progress bar
+    btn.style.display = 'none';
+    progressContainer.style.display = 'block';
+
+    let progress = 0;
+    const interval = setInterval(()=>{
+        progress += Math.floor(Math.random()*15)+10; // random step
+        if(progress>=100) progress=100;
+        progressBar.style.width = progress + '%';
+
+        if(progress>=100){
+            clearInterval(interval);
+            setTimeout(()=>{
+                window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+            },500);
+        }
+    },500); // update every 0.5s
 }
-
-// ===== Chaos on cursor/touch =====
-function applyChaos(x,y){
-  const rect=btn.getBoundingClientRect();
-  const distance=Math.hypot(x-(rect.left+rect.width/2),y-(rect.top+rect.height/2));
-  if(distance<120){
-    const offsetX=(Math.random()-0.5)*200;
-    const offsetY=(Math.random()-0.5)*200;
-    btn.style.transform=`translate(${offsetX}px,${offsetY}px) scale(1.1)`;
-    spawnConfetti();
-    spawnFlyText();
-  } else { btn.style.transform='translate(0,0) scale(1)'; }
-}
-
-document.body.addEventListener('mousemove',e=>applyChaos(e.clientX,e.clientY));
-document.body.addEventListener('touchmove',e=>{if(e.touches.length>0) applyChaos(e.touches[0].clientX,e.touches[0].clientY);});
-
-// ===== Spawn Confetti =====
-function spawnConfetti(){
-  for(let i=0;i<5;i++){
-    const c=document.createElement('div');
-    c.className='confetti';
-    c.style.setProperty('--r',Math.random());
-    c.style.background=`hsl(${Math.random()*360},100%,50%)`;
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),3000);
-  }
-}
-
-// ===== Spawn Flying Text =====
-function spawnFlyText(){
-  const t=document.createElement('div');
-  t.className='fly-text';
-  t.style.left=Math.random()*80+'vw';
-  t.style.top=Math.random()*80+'vh';
-  t.style.setProperty('--r',Math.random());
-  t.textContent=phrases[Math.floor(Math.random()*phrases.length)];
-  document.body.appendChild(t);
-  setTimeout(()=>t.remove(),2000);
-}
-
-// ===== Flash + Shake =====
-function playChaos(){
-  audio.play();
-  let i=0;
-  const flash=setInterval(()=>{
-    document.body.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
-    document.body.style.transform=`translate(${Math.random()*20-10}px,${Math.random()*20-10}px) rotate(${Math.random()*10-5}deg)`;
-    i++;
-    if(i>15){ clearInterval(flash); document.body.style.transform='translate(0,0)'; }
-  },100);
-}
-
-// ===== Ultimate Auto-Chaos after delay =====
-setTimeout(()=>{
-  setInterval(()=>{
-    spawnConfetti();
-    spawnFlyText();
-    if(Math.random()<0.3) playChaos();
-  },500); // every 0.5s
-},3000); // starts after 3s
 </script>
+
 </body>
 </html>
